@@ -17,6 +17,14 @@ const actions = {
 			console.log(error)
 		}
 	},
+	fetchClientsAccounts: async (_, clientId) => {
+		const response = await Vue.axios({
+			method: 'get',
+			url: `get-client-accounts/${clientId}`,
+		})
+
+		return response.data
+	},
 }
 
 const getters = {}

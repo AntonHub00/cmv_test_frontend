@@ -12,9 +12,13 @@ export default {
 	name: 'Home',
 	created() {
 		this.fetchClients()
+
+		this.fetchClientsAccounts(1)
+			.then((accounts) => console.log(accounts))
+			.catch((error) => console.log(error))
 	},
 	methods: {
-		...mapActions('api', ['fetchClients']),
+		...mapActions('api', ['fetchClients', 'fetchClientsAccounts']),
 	},
 }
 </script>
