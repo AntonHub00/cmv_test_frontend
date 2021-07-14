@@ -1,5 +1,15 @@
 <template>
 	<div>
+		<b-modal
+			v-model="showConfirmationDeletionModal"
+			:title="'¿Deseas eliminar cliente?'"
+			:cancel-title="'Cancelar'"
+			:ok-title="'Continuar'"
+			@ok="deleteClient(toDeleteClientId)"
+		>
+			Al eliminar este cliente todas sus cuentas asociadas serán eliminadas.
+		</b-modal>
+
 		<b-table
 			striped
 			hover
@@ -9,8 +19,15 @@
 			:fields="fields"
 		>
 			<template #cell(actions)="row">
-				<b-button size="sm" class="mr-2" @click="row.toggleDetails">
+				<b-button size="sm" class="mx-2" @click="row.toggleDetails">
 					{{ row.detailsShowing ? 'Ocultar' : 'Mostrar' }} cuentas
+				</b-button>
+				<b-button
+					size="sm"
+					class="mx-2 btn-danger"
+					@click="deleteClientAction(row.item.id)"
+				>
+					Eliminar
 				</b-button>
 			</template>
 
@@ -23,7 +40,7 @@
 
 <script>
 import AccountInfoCard from '@/components/AccountInfoCard.vue'
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
 	name: 'ClientsTable',
@@ -42,6 +59,8 @@ export default {
 				{ key: 'created_at', label: 'Fecha de alta' },
 				{ key: 'actions', label: 'Acciones' },
 			],
+			showConfirmationDeletionModal: false,
+			toDeleteClientId: null,
 		}
 	},
 	computed: {
@@ -52,6 +71,13 @@ export default {
 				const formattedDate = new Date(created_at).toLocaleDateString('es-MX')
 				return { ...rest, created_at: formattedDate }
 			})
+		},
+	},
+	methods: {
+		...mapActions('api', ['deleteClient']),
+		deleteClientAction(clientId) {
+			this.toDeleteClientId = clientId
+			this.showConfirmationDeletionModal = true
 		},
 	},
 }
