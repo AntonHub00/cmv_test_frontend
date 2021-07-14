@@ -27,7 +27,7 @@ export default {
 		clientsList() {
 			return this.clients.map((client) => {
 				const { created_at, ...rest } = client
-				const formattedDate = new Date(created_at).toLocaleDateString()
+				const formattedDate = new Date(created_at).toLocaleDateString('es-MX')
 				return { ...rest, created_at: formattedDate }
 			})
 		},
