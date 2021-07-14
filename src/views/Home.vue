@@ -25,12 +25,15 @@ export default {
 		// 	rfc: 'AOOrfc12',
 		// 	curp: 'AOOcurp12',
 		// })
+
+		// this.deleteClient(1)
 	},
 	methods: {
 		...mapActions('api', [
 			'fetchClients',
 			'fetchClientsAccounts',
 			'updateClient',
+			'deleteClient',
 		]),
 	},
 }

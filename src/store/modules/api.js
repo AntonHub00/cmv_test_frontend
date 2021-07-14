@@ -34,6 +34,14 @@ const actions = {
 
 		await dispatch('fetchClients')
 	},
+	deleteClient: async ({ dispatch }, clientId) => {
+		await Vue.axios({
+			method: 'delete',
+			url: `delete-client/${clientId}`,
+		})
+
+		await dispatch('fetchClients')
+	},
 }
 
 const getters = {}
