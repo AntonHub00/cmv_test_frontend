@@ -1,15 +1,27 @@
 <template>
 	<div>
-		<div>Home</div>
-		<div>This is a test component</div>
+		<b-row>
+			<b-col style="text-align: center">
+				<h1>Caja Morelia Valladolid</h1>
+			</b-col>
+		</b-row>
+		<b-row class="mt-5">
+			<b-col>
+				<clients-table />
+			</b-col>
+		</b-row>
 	</div>
 </template>
 
 <script>
+import ClientsTable from '@/components/ClientsTable.vue'
 import { mapActions } from 'vuex'
 
 export default {
 	name: 'Home',
+	components: {
+		ClientsTable,
+	},
 	created() {
 		this.fetchClients()
 

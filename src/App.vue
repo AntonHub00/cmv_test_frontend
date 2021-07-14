@@ -1,7 +1,8 @@
 <template>
 	<div>
-		<div>Vue app</div>
-		<router-view />
+		<b-container>
+			<router-view />
+		</b-container>
 	</div>
 </template>
 
