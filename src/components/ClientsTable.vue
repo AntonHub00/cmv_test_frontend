@@ -10,6 +10,18 @@
 			Al eliminar este cliente todas sus cuentas asociadas serán eliminadas.
 		</b-modal>
 
+		<b-modal
+			id="updateClientModal"
+			v-model="showUpdateClientModal"
+			:title="'Actualizar cliente'"
+			:hide-footer="true"
+		>
+			<update-client-info
+				:client="toUpdateClientObject"
+				@updated="$bvModal.hide('updateClientModal')"
+			/>
+		</b-modal>
+
 		<b-table
 			striped
 			hover
@@ -19,12 +31,21 @@
 			:fields="fields"
 		>
 			<template #cell(actions)="row">
-				<b-button size="sm" class="mx-2" @click="row.toggleDetails">
+				<b-button size="sm" class="mx-2 my-1" @click="row.toggleDetails()">
 					{{ row.detailsShowing ? 'Ocultar' : 'Mostrar' }} cuentas
 				</b-button>
+
 				<b-button
 					size="sm"
-					class="mx-2 btn-danger"
+					class="mx-2 my-1 btn-warning"
+					@click="updateClientAction(row.item)"
+				>
+					Actualizar
+				</b-button>
+
+				<b-button
+					size="sm"
+					class="mx-2 my-1 btn-danger"
 					@click="deleteClientAction(row.item.id)"
 				>
 					Eliminar
@@ -40,12 +61,14 @@
 
 <script>
 import AccountInfoCard from '@/components/AccountInfoCard.vue'
+import UpdateClientInfo from '@/components/UpdateClientInfo.vue'
 import { mapActions, mapState } from 'vuex'
 
 export default {
 	name: 'ClientsTable',
 	components: {
 		AccountInfoCard,
+		UpdateClientInfo,
 	},
 	data() {
 		return {
@@ -60,7 +83,9 @@ export default {
 				{ key: 'actions', label: 'Acciones' },
 			],
 			showConfirmationDeletionModal: false,
+			showUpdateClientModal: false,
 			toDeleteClientId: null,
+			toUpdateClientObject: null,
 		}
 	},
 	computed: {
@@ -78,6 +103,10 @@ export default {
 		deleteClientAction(clientId) {
 			this.toDeleteClientId = clientId
 			this.showConfirmationDeletionModal = true
+		},
+		updateClientAction(clientObject) {
+			this.toUpdateClientObject = clientObject
+			this.showUpdateClientModal = true
 		},
 	},
 }
