@@ -1,14 +1,35 @@
 <template>
 	<div>
-		<b-table striped hover :items="clientsList" :fields="fields"> </b-table>
+		<b-table
+			striped
+			hover
+			:responsive="true"
+			:small="true"
+			:items="clientsList"
+			:fields="fields"
+		>
+			<template #cell(actions)="row">
+				<b-button size="sm" class="mr-2" @click="row.toggleDetails">
+					{{ row.detailsShowing ? 'Ocultar' : 'Mostrar' }} cuentas
+				</b-button>
+			</template>
+
+			<template #row-details="row">
+				<account-info-card :client-id="row.item.id" />
+			</template>
+		</b-table>
 	</div>
 </template>
 
 <script>
+import AccountInfoCard from '@/components/AccountInfoCard.vue'
 import { mapState } from 'vuex'
 
 export default {
 	name: 'ClientsTable',
+	components: {
+		AccountInfoCard,
+	},
 	data() {
 		return {
 			fields: [
@@ -19,6 +40,7 @@ export default {
 				{ key: 'rfc', label: 'RFC' },
 				{ key: 'curp', label: 'CURP' },
 				{ key: 'created_at', label: 'Fecha de alta' },
+				{ key: 'actions', label: 'Acciones' },
 			],
 		}
 	},
