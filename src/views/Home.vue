@@ -13,12 +13,25 @@ export default {
 	created() {
 		this.fetchClients()
 
-		this.fetchClientsAccounts(1)
-			.then((accounts) => console.log(accounts))
-			.catch((error) => console.log(error))
+		// this.fetchClientsAccounts(1)
+		// 	.then((accounts) => console.log(accounts))
+		// 	.catch((error) => console.log(error))
+
+		// this.updateClient({
+		// 	clientId: 1,
+		// 	firstName: 'Antoni',
+		// 	firstLastName: 'Ocho',
+		// 	secondLastName: 'Adam',
+		// 	rfc: 'AOOrfc12',
+		// 	curp: 'AOOcurp12',
+		// })
 	},
 	methods: {
-		...mapActions('api', ['fetchClients', 'fetchClientsAccounts']),
+		...mapActions('api', [
+			'fetchClients',
+			'fetchClientsAccounts',
+			'updateClient',
+		]),
 	},
 }
 </script>

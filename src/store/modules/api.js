@@ -25,6 +25,15 @@ const actions = {
 
 		return response.data
 	},
+	updateClient: async ({ dispatch }, { clientId, ...payload }) => {
+		await Vue.axios({
+			method: 'put',
+			url: `update-client/${clientId}`,
+			data: payload,
+		})
+
+		await dispatch('fetchClients')
+	},
 }
 
 const getters = {}
