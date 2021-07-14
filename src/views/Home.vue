@@ -6,7 +6,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
 	name: 'Home',
+	created() {
+		this.fetchClients()
+	},
+	methods: {
+		...mapActions('api', ['fetchClients']),
+	},
 }
 </script>
